@@ -1,5 +1,5 @@
 // Variables for colors and font sizes
-@import './variables.scss';
+@use './variables.scss' as *;
 
 @mixin container {
     display: flex;

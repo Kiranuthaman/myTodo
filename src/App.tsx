@@ -14,8 +14,8 @@ function App() {
         <Route path="/" element={<Auth />} />
         <Route path="/register" element={<Auth register = {true}/>} />
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="alltodo" element={<AllTodo />} />
-          <Route path="ongoing" element={<OnGoing />} />
+          <Route index element={<OnGoing />} />
+          <Route index path='alltasks' element={<AllTodo />} />
           <Route path="completed" element={<Completed />} />
         </Route>
         <Route path="/profile" element={<Profile />} />
