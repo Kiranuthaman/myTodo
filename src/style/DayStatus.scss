@@ -1,0 +1,30 @@
+.day-status-card {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin: 1rem;
+    text-align: center;
+  
+    h3 {
+      color: #1e293b;
+      margin-bottom: 1rem;
+    }
+  
+    .gif-wrapper {
+      max-width: 300px;
+      margin: 0 auto;
+  
+      img {
+        width: 100%;
+        border-radius: 12px;
+      }
+    }
+  
+    .day-caption {
+      margin-top: 1rem;
+      color: #6b7280;
+      font-size: 0.95rem;
+    }
+  }
+  
