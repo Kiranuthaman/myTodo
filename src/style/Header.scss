@@ -1,0 +1,49 @@
+@import './variables.scss';
+
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 2rem;
+  background-color: white;
+  border-bottom: 1px solid $input-border;
+
+  .welcome-note h2 {
+    font-size: 1.8rem;
+    color: $gray-text;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .profile-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: rgba($primary-color, 0.1);
+      color: $primary-color;
+      border-radius: 50%;
+      font-size: 1.25rem;
+    }
+
+    .header-button {
+      padding: 0.6rem 1rem;
+      background-color: $primary-color;
+      color: white;
+      border: none;
+      border-radius: $button-radius;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: $primary-color-hover;
+      }
+    }
+  }
+}

@@ -1,0 +1,128 @@
+// Variables for colors and font sizes
+@import './variables.scss';
+
+@mixin container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+}
+
+// Container styles
+.container {
+  @include container;
+  height: 100vh;
+  padding: 1rem;
+  background: #f0f4f8; 
+}
+
+// Auth Card
+.auth-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  transform: translateY(0); 
+  transition: transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px); 
+  }
+}
+
+// Auth Content (flex container for sections)
+.auth-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+// Common styles for both Login and Register sections
+.login-section,
+.register-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; 
+}
+
+// Header styles
+h2 {
+  font-size: 1.75rem;
+  color: $dark-text;
+  font-weight: 600;
+  margin-bottom: 1rem; 
+}
+
+p {
+  font-size: 1rem;
+  color: $gray-text;
+}
+
+// Input fields
+input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid $input-border;
+  border-radius: $input-radius;
+  font-size: 1rem;
+  transition: border 0.3s, box-shadow 0.3s;
+  background-color: $background-color;
+  color: $dark-text;
+  margin-bottom: 1rem; // Space between inputs
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:focus {
+    border-color: $input-focus-border;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.15);
+    background-color: #ffffff;
+  }
+}
+
+// Button styling
+.button {
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  padding: $button-padding;
+  border-radius: $button-radius;
+  cursor: pointer;
+  font-size: 1.05rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  width: 100%; // Full-width button
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
+
+// Line between login and register sections
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: $line-color;
+  margin: 2rem 0;
+}
+
+// Toggle Button
+.toggle-btn {
+  background: none;
+  border: none;
+  color: $primary-color;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: $primary-color-hover;
+  }
+}
