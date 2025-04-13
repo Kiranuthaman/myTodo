@@ -1,10 +1,9 @@
-import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
 import '../style/Dashboard.scss'
 
-const  Dashboard:React.FC=()=> {
+const  Dashboard =()=> {
   return (
     <div className="dashboard">
       <Header />
