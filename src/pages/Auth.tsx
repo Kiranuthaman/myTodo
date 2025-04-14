@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Auth.scss";
-import { registerUserAPI } from "../service/userAPI";
+import { loginUserAPI, registerUserAPI } from "../service/userAPI";
 
 interface RegisterProps {
   register?: boolean;
@@ -29,6 +29,7 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
   });
 
   const [passwordMatch, setPasswordMatch] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -59,30 +60,52 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
         mname: formData.mname,
         lname: formData.lname,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       },
-      entity: "user"
+      entity: "user",
     };
 
     try {
       const result = await registerUserAPI(reqBody);
-      console.log("Result:", result);
       if (result.status === 201) {
-        alert("Registration Successfull !")
-        localStorage.setItem("user",JSON.stringify(result.data))
-        localStorage.setItem("token",JSON.stringify(result.data.token))
-        navigate("/dashboard")
-      }else if (result.status === 500) {
-        alert("Account exist. Please login !")
-        navigate("/")
+        alert("Registration Successfull !");
+        localStorage.setItem("user", JSON.stringify(result.data));
+        localStorage.setItem("token", JSON.stringify(result.data.token));
+        navigate("/dashboard");
+      } else if (result.status === 500) {
+        alert("Account exist. Please login !");
+        navigate("/");
       }
     } catch (error) {
       console.error("Registeration Error:", error);
     }
   };
 
-  const handleLogin = async () => {
-    
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      alert("Please fill up all fields!");
+      return;
+    } else {
+      const reqBody = {
+        email: formData.email,
+        password: formData.password,
+      };
+      try {
+        const result = await loginUserAPI(reqBody);
+        console.log(result);
+
+        if (result.status === 200) {
+          localStorage.setItem("user", JSON.stringify(result.data));
+          localStorage.setItem("token", JSON.stringify(result.data.token));
+          navigate("/dashboard");
+        } else {
+          setError(result.response.data.error);
+        }
+      } catch (error) {
+        console.error("LOGIN ERROR :", error);
+      }
+    }
   };
 
   return (
@@ -150,14 +173,34 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
             <section className="login-section">
               <h2>Login Here</h2>
               <p>Login to your account</p>
-              <form>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button
-                  onClick={() => handleLogin()}
-                  type="submit"
-                  className="button"
-                >
+              <form onSubmit={handleLogin}>
+                <input
+                  type="email"
+                  placeholder="Email address"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                {error && (
+                  <p
+                    style={{
+                      color: "red",
+                      marginTop: "2px",
+                      marginBottom: "20px",
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    {error}
+                  </p>
+                )}
+                <button type="submit" className="button">
                   Login
                 </button>
               </form>
