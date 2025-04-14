@@ -1,6 +1,5 @@
-import React from 'react'
 
-const  OnGoing:React.FC=()=> {
+const  OnGoing =()=> {
   return (
     <div>OnGoing</div>
   )

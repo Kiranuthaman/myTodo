@@ -1,9 +1,8 @@
-import React from 'react';
-import { FaTasks, FaCheckCircle, FaHourglassHalf, FaCog } from 'react-icons/fa';
+import { FaTasks, FaCheckCircle, FaHourglassHalf } from 'react-icons/fa';
 import '../style/Sidebar.scss';
 import { Link } from 'react-router-dom';
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
   return (
     <div className="sidebar">
       {/* Sidebar Header */}
