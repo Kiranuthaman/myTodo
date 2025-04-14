@@ -2,10 +2,10 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
-import AllTodo from './pages/AllTodo'
-import OnGoing from './pages/OnGoing'
-import Completed from './pages/Completed'
-import Profile from './pages/Profile'
+import AllTodo from './layouts/AllTodo'
+import OnGoing from './layouts/OnGoing'
+import Completed from './layouts/Completed'
+import UserProfie from './layouts/UserProfie'
 
 function App() {
   return (
@@ -17,8 +17,8 @@ function App() {
           <Route index element={<OnGoing />} />
           <Route index path='alltasks' element={<AllTodo />} />
           <Route path="completed" element={<Completed />} />
+          <Route path="profile" element={<UserProfie />} />
         </Route>
-        <Route path="/profile" element={<Profile />} />
       </Routes>
 
     </>

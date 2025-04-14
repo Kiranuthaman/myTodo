@@ -1,6 +1,7 @@
 import { FaTasks, FaCheckCircle, FaHourglassHalf } from 'react-icons/fa';
 import '../style/Sidebar.scss';
 import { Link } from 'react-router-dom';
+import { ImProfile } from 'react-icons/im';
 
 const Sidebar = () => {
   return (
@@ -45,6 +46,17 @@ const Sidebar = () => {
             <div className="stat-info">
               <span className="stat-label">Completed</span>
               <span className="stat-value">12</span>
+            </div>
+          </div>
+        </Link>
+
+        <Link to={'Profile'} className='link-dec'>
+          <div className="stat-item">
+            <div className="stat-icon profile">
+              <ImProfile size={18} />
+            </div>
+            <div className="stat-info">
+              <span className="stat-label">Profile</span>
             </div>
           </div>
         </Link>
