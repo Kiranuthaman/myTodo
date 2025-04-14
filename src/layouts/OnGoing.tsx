@@ -1,8 +1,12 @@
 import TodoCard from "../components/TodoCard";
+import TodoForm from "../components/UI/TodoForm";
 import "../style/Gird.scss"; // We'll add styling here
 
 const OnGoing = () => {
   return (
+    <>
+          <TodoForm/>
+
     <div className="on-going-wrapper">
       <TodoCard />
       <TodoCard />
@@ -12,6 +16,7 @@ const OnGoing = () => {
       <TodoCard />
     
     </div>
+    </>
   );
 };
 

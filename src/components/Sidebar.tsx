@@ -2,6 +2,8 @@ import { FaTasks, FaCheckCircle, FaHourglassHalf } from 'react-icons/fa';
 import '../style/Sidebar.scss';
 import { Link } from 'react-router-dom';
 import { ImProfile } from 'react-icons/im';
+import { FcHeatMap } from 'react-icons/fc';
+import { HiHeart } from 'react-icons/hi';
 
 const Sidebar = () => {
   return (
@@ -45,6 +47,17 @@ const Sidebar = () => {
             </div>
             <div className="stat-info">
               <span className="stat-label">Completed</span>
+              <span className="stat-value">12</span>
+            </div>
+          </div>
+        </Link>
+        <Link to={'favorate'} className='link-dec'>
+          <div className="stat-item">
+            <div className="stat-icon favorate">
+              <HiHeart size={18} />
+            </div>
+            <div className="stat-info">
+              <span className="stat-label">Favorate</span>
               <span className="stat-value">12</span>
             </div>
           </div>
