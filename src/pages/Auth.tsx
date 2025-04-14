@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Auth.scss";
+import { registerUserAPI } from "../service/userAPI";
 
 interface RegisterProps {
   register?: boolean;
@@ -44,7 +45,7 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
     }
   };
 
-  const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!passwordMatch) {
@@ -58,17 +59,30 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
         mname: formData.mname,
         lname: formData.lname,
         email: formData.email,
-        password: formData.password,
+        password: formData.password
       },
-      entity: "user",
+      entity: "user"
     };
 
-    console.log("Request Body:", reqBody);
-    // Call API here
+    try {
+      const result = await registerUserAPI(reqBody);
+      console.log("Result:", result);
+      if (result.status === 201) {
+        alert("Registration Successfull !")
+        localStorage.setItem("user",JSON.stringify(result.data))
+        localStorage.setItem("token",JSON.stringify(result.data.token))
+        navigate("/dashboard")
+      }else if (result.status === 500) {
+        alert("Account exist. Please login !")
+        navigate("/")
+      }
+    } catch (error) {
+      console.error("Registeration Error:", error);
+    }
   };
 
   const handleLogin = async () => {
-    navigate("/");
+    
   };
 
   return (
@@ -127,10 +141,7 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
                     Passwords do not match
                   </p>
                 )}
-                <button
-                  type="submit"
-                  className="button"
-                >
+                <button type="submit" className="button">
                   Register
                 </button>
               </form>
