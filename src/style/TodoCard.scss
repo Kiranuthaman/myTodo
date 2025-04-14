@@ -1,0 +1,114 @@
+:root {
+  --primary: #10b981;
+  --warning: #f59e0b;
+  --bg-completed: #e0f8f1;
+  --bg-ongoing: #fff9ec;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  --border-radius: 16px;
+  --transition: 0.3s ease;
+}
+
+.todo-card {
+  background: #fff;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  width: 320px;
+  transition: transform var(--transition), box-shadow var(--transition);
+  border-left: 5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  &.ongoing {
+    background-color: var(--bg-ongoing);
+    border-left-color: var(--warning);
+
+    .todo-status {
+      color: var(--warning);
+    }
+  }
+
+  &.completed {
+    background-color: var(--bg-completed);
+    border-left-color: var(--primary);
+
+    .todo-status {
+      color: var(--primary);
+    }
+
+    .status-toggle {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
+  }
+
+  .todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .todo-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .todo-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .todo-status {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem;
+    border-radius: 50%;
+    transition: background-color var(--transition);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: var(--text-secondary);
+    }
+  }
+
+  .status-toggle {
+    width: 28px;
+    height: 28px;
+    border: 2px solid #d1d5db;
+    background-color: #f9fafb;
+    color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover {
+      border-color: #6b7280;
+    }
+  }
+}

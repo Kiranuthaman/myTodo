@@ -1,6 +1,5 @@
 import React from 'react';
 import '../style/Header.scss';
-import { IoMdContact } from 'react-icons/io';
 
 const Header: React.FC = () => {
   return (
@@ -9,9 +8,6 @@ const Header: React.FC = () => {
         <h2>My Todo</h2>
       </div>
       <div className="header-actions">
-        <div className="profile-icon">
-        <IoMdContact size={48} />       
-         </div>
         <button className="header-button">
           <span>Sign Out</span>
         </button>
