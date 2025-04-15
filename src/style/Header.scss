@@ -59,3 +59,19 @@
     }
   }
 }
+
+.live-time {
+  @media (min-width: 768px) {
+    color: rgb(0, 94, 255);
+    border: 1px solid rgba(0, 76, 255, 0.545);
+    padding: 8px 8px;
+    border-radius: 8px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+}
+
+

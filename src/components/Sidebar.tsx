@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
       {/* Sidebar Header */}
       <div className="sidebar-header">
         <h1>
-          Hi,{user?.fname}
+          Hi, <span style={{color:"#0f65c7"}}>{user?.fname}</span>
         </h1>
       </div>
 
