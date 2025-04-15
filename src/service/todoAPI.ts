@@ -13,5 +13,20 @@ export const getAllTodoAPI = async (id: any, reqHeader: any) => {
 
 //GET ALL COMPLETED TODO API
 export const getAllCompletedTodoAPI = async (id: any, reqHeader: any) => {
-    return await commonApi("GET", `${serverUrl}/api/todo/completed/${id}`, {}, reqHeader);
+  return await commonApi(
+    "GET",
+    `${serverUrl}/api/todo/completed/${id}`,
+    {},
+    reqHeader
+  );
+};
+
+//GET ALL FAVOURITE TODO API
+export const getAllFavouriteTodoAPI = async (id: any, reqHeader: any) => {
+    return await commonApi(
+      "GET",
+      `${serverUrl}/api/todo/favourite/${id}`,
+      {},
+      reqHeader
+    );
   };

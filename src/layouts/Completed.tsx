@@ -36,7 +36,6 @@ const Completed: React.FC = () => {
     getAllCompletedTodo();
   }, []);
 
-  console.log(todos);
   
   return (
     <div className="on-going-wrapper">
