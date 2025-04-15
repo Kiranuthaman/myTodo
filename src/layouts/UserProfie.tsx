@@ -1,7 +1,8 @@
-import { CiSettings } from 'react-icons/ci';
 import '../style/Profile.scss';
 import React, { useEffect, useState } from 'react';
 import { getAllTodoAPI } from '../service/todoAPI';
+import DeleteProfile from '../components/UI/DeleteProfile';
+import { FaTrash } from 'react-icons/fa';
 
 interface Todo {
   id: string;
@@ -9,8 +10,10 @@ interface Todo {
   status: 'ongoing' | 'completed';
 }
 
+
 const UserProfile: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   const getAllTodo = async () => {
     const token = JSON.parse(localStorage.getItem("token") || "{}");
@@ -38,7 +41,8 @@ const UserProfile: React.FC = () => {
   useEffect(() => {
     getAllTodo();
   }, []);
-// number of tasks
+
+  // number of tasks
   const totalTasks = todos.length;
   const ongoingTasks = todos.filter(todo => todo.status == 'ongoing').length;
   const completedTasks = todos.filter(todo => todo.status == 'completed').length;
@@ -46,6 +50,16 @@ const UserProfile: React.FC = () => {
   // personal details
   const data = JSON.parse(localStorage.getItem("user") || "{}");
   const fullName = `${data.fname || ''} ${data.mname || ''} ${data.lname || ''}`.trim();
+  const firstLetter = `${data.fname?.[0] || ''}${data.lname?.[0] || ''}`.toUpperCase();
+
+
+  const handleDelete = () => {
+    // Your delete logic here (e.g., API call)
+    console.log("Account permanently deleted");
+    setShowModal(false);
+  };
+
+
 
   return (
     <div className="page-wrapper">
@@ -54,16 +68,20 @@ const UserProfile: React.FC = () => {
           <div className="header-content">
             <div className="user-info">
               <div className="avatar">
-                <span className="initials">KU</span>
+                <span className="initials">{firstLetter}</span>
               </div>
               <div className="details">
                 <h1 className="name">{fullName}</h1>
-                <p className="email">kiran@gmail.com</p>
+                <p className="email">{data.email}</p>
               </div>
             </div>
-            <button className="settings-btn">
-              <CiSettings size={30} className="icon" />
-            </button>
+            <button className='settings-btn' onClick={() => setShowModal(true)}><FaTrash style={{color:"#3b82f6"}} size={18}/></button>
+            <DeleteProfile
+              isOpen={showModal}
+              onClose={() => setShowModal(false)}
+              onDelete={handleDelete}
+            />
+
           </div>
         </div>
 
