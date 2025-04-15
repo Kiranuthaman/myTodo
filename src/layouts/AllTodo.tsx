@@ -36,7 +36,6 @@ const AllTodo: React.FC = () => {
     getAllTodo();
   }, []);
 
-  console.log(todos);
 
   return (
     <div className="on-going-wrapper">

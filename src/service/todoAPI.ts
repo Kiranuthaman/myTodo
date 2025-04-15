@@ -10,3 +10,8 @@ export const createTodoAPI = async (reqBody: any, reqHeader: any) => {
 export const getAllTodoAPI = async (id: any, reqHeader: any) => {
   return await commonApi("GET", `${serverUrl}/api/todo/${id}`, {}, reqHeader);
 };
+
+//GET ALL COMPLETED TODO API
+export const getAllCompletedTodoAPI = async (id: any, reqHeader: any) => {
+    return await commonApi("GET", `${serverUrl}/api/todo/completed/${id}`, {}, reqHeader);
+  };
