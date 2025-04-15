@@ -1,7 +1,8 @@
 import TodoCard from '../components/TodoCard'
 import "../style/Gird.scss"; // We'll add styling here
+import React from 'react';
 
-const  Completed =()=> {
+const  Completed:React.FC =()=> {
   return (
     <div className="on-going-wrapper">
       <TodoCard />

@@ -1,7 +1,9 @@
 import TodoCard from "../components/TodoCard";
 import "../style/Gird.scss"; 
+import React from 'react';
 
-const AllTodo = ()=>{
+
+const AllTodo: React.FC = ()=>{
     return(
         <div className="on-going-wrapper">
         <TodoCard />

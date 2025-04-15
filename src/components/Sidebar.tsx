@@ -2,10 +2,11 @@ import { FaTasks, FaCheckCircle, FaHourglassHalf } from 'react-icons/fa';
 import '../style/Sidebar.scss';
 import { Link } from 'react-router-dom';
 import { ImProfile } from 'react-icons/im';
-import { FcHeatMap } from 'react-icons/fc';
 import { HiHeart } from 'react-icons/hi';
+import React from 'react';
 
-const Sidebar = () => {
+
+const Sidebar :React.FC= () => {
   return (
     <div className="sidebar">
       {/* Sidebar Header */}
