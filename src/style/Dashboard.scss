@@ -1,25 +1,40 @@
 .dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .dashboard-content {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
-  
-    .dashboard-content {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-  
-      .sidebar {
-        width: 280px;
-        height: 100%;
-        flex-shrink: 0;
+    flex: 1;
+    overflow: hidden;
+
+    .sidebar {
+      width: 280px;
+      height: 100%;
+      flex-shrink: 0;
+      transition: transform 0.3s ease-in-out;
+
+      @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #fff;
+        transform: translateX(-100%); // hidden by default
       }
-  
-      .main-content {
-        flex: 1;
-        padding: 1.5rem;
-        overflow-y: auto;
-        background-color: #f8fafc;
+
+      &.open {
+        @media (max-width: 768px) {
+          transform: translateX(0); // visible when toggled
+        }
       }
     }
+
+    .main-content {
+      flex: 1;
+      padding: 1.5rem;
+      overflow-y: auto;
+      background-color: #f8fafc;
+    }
   }
-  
+}
