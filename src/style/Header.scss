@@ -1,5 +1,4 @@
-@use './variables.scss' as *;
-
+@use "./variables.scss" as *;
 
 .header-container {
   display: flex;
@@ -10,8 +9,17 @@
   border-bottom: 1px solid $input-border;
 
   .welcome-note h2 {
-    font-size: 1.8rem;
+    font-size: 2rem;
+    font-weight: 700;
     color: $primary-color;
+    text-shadow: 4px 4px 1px rgba(182, 11, 249, 0.153);
+    margin-bottom: 1rem;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: darken($primary-color, 10%);
+      transform: scale(1.03);
+    }
   }
 
   .header-actions {
@@ -32,12 +40,16 @@
     }
 
     .header-button {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       padding: 0.6rem 1rem;
       background-color: $primary-color;
       color: white;
       border: none;
       border-radius: $button-radius;
       font-weight: 500;
+      font-size: medium;
       cursor: pointer;
       transition: background-color 0.2s ease;
 
