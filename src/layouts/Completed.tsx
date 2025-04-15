@@ -3,8 +3,10 @@ import "../style/Gird.scss"; // We'll add styling here
 import React from 'react';
 
 const  Completed:React.FC =()=> {
+
   return (
     <div className="on-going-wrapper">
+      <TodoCard />
       <TodoCard />
       <TodoCard />
       <TodoCard />
