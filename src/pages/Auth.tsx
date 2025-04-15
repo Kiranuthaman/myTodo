@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../style/Auth.scss";
 import { loginUserAPI, registerUserAPI } from "../service/userAPI";
@@ -107,6 +107,12 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
       }
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("user") && localStorage.getItem("token")) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="container">
