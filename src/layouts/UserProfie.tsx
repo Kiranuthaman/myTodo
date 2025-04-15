@@ -1,8 +1,9 @@
 import { CiSettings } from 'react-icons/ci'
 import '../style/Profile.scss'
+import React from 'react';
 
 
-const  UserProfie = ()=> {
+const  UserProfie:React.FC = ()=> {
   return (
     <div className="page-wrapper">
     <div className="profile-container">

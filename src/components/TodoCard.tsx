@@ -2,8 +2,10 @@ import { useState } from "react";
 import "../style/TodoCard.scss";
 import { HiHeart } from "react-icons/hi";
 import { BiTrash } from "react-icons/bi";
+import React from 'react';
 
-const TodoCard = () => {
+
+const TodoCard:React.FC = () => {
   const [isCompleted, setIsCompleted] = useState(false);
 
   const toggleStatus = () => {
