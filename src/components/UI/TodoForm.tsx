@@ -37,7 +37,6 @@ const TodoForm = () => {
       };
       try {
         const result = await createTodoAPI(reqBody, reqHeader);
-        console.log(result);
         if (result.status === 201) {
           alert("Todo Created !");
         } else {

@@ -1,19 +1,54 @@
 import TodoCard from "../components/TodoCard";
-import "../style/Gird.scss"; 
-import React from 'react';
+import { getAllTodoAPI } from "../service/todoAPI";
+import "../style/Gird.scss";
+import React, { useEffect, useState } from "react";
 
+const AllTodo: React.FC = () => {
+  const [todos, setTodos] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-const AllTodo: React.FC = ()=>{
-    return(
-        <div className="on-going-wrapper">
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />
-        <TodoCard />   
-      </div>
-    )
-}
+  //FETCHING ALL TODOS
+  const getAllTodo = async () => {
+    const token = JSON.parse(localStorage.getItem("token") || "{}");
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
 
-export default AllTodo
+    if (token) {
+      const reqHeader = {
+        Authorization: token,
+      };
+      try {
+        setLoading(true);
+        const result = await getAllTodoAPI(user.id, reqHeader);
+        if (result.status === 200) {
+          setTodos(result.data);
+        } else {
+          alert("Failed to fetch todos");
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getAllTodo();
+  }, []);
+
+  console.log(todos);
+
+  return (
+    <div className="on-going-wrapper">
+      {loading ? (
+        <div>Loading...</div>
+      ) : todos.length > 0 ? (
+        todos.map((todo:any, index:number) => <TodoCard key={index} todo={todo} />)
+      ) : (
+        <div>No todos found</div>
+      )}
+    </div>
+  );
+};
+
+export default AllTodo;
