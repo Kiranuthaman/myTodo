@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { BiPlusCircle, BiX } from "react-icons/bi";
 import "../style/TodoForm.scss";
 import { createTodoAPI } from "../../service/todoAPI";
+import { createTodoResponseContext } from "../../contexts/responses/todo/ResponseShare";
 
 interface Todo {
   title: string;
@@ -9,13 +10,18 @@ interface Todo {
 }
 
 const TodoForm = () => {
+  // CONTEXTS
+  const context = useContext(createTodoResponseContext);
+  const { setCreateTodoResponse } = context;
+  
+
   const [todo, setTodo] = useState<Todo>({ title: "", content: "" });
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleClose = ()=>{
+  const handleClose = () => {
     setIsOpen(false);
-    setTodo({ title: "", content: "" })
-  }
+    setTodo({ title: "", content: "" });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,6 +45,7 @@ const TodoForm = () => {
         const result = await createTodoAPI(reqBody, reqHeader);
         if (result.status === 201) {
           alert("Todo Created !");
+          setCreateTodoResponse(result.data);
         } else {
           alert(result.response.data.error);
         }

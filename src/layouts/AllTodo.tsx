@@ -1,9 +1,14 @@
 import TodoCard from "../components/TodoCard";
+import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 import { getAllTodoAPI } from "../service/todoAPI";
 import "../style/Gird.scss";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const AllTodo: React.FC = () => {
+  // CONTEXTS
+  const context2 = useContext(updateTodoResponseContext);
+  const { updateTodoResponse } = context2;
+
   const [todos, setTodos] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -34,15 +39,16 @@ const AllTodo: React.FC = () => {
 
   useEffect(() => {
     getAllTodo();
-  }, []);
-
+  }, [updateTodoResponse]);
 
   return (
     <div className="on-going-wrapper">
       {loading ? (
         <div>Loading...</div>
       ) : todos.length > 0 ? (
-        todos.map((todo:any, index:number) => <TodoCard key={index} todo={todo} />)
+        todos.map((todo: any, index: number) => (
+          <TodoCard key={index} todo={todo} />
+        ))
       ) : (
         <div>No todos found</div>
       )}

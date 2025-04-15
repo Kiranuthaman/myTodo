@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TodoCard from "../components/TodoCard";
 import { getAllFavouriteTodoAPI } from "../service/todoAPI";
+import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 
 function Favorate() {
+  // CONTEXTS
+  const context2 = useContext(updateTodoResponseContext);
+  const { updateTodoResponse } = context2;
+
   const [todos, setTodos] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -33,8 +38,8 @@ function Favorate() {
 
   useEffect(() => {
     getAllFavouriteTodo();
-  }, []);
-  
+  }, [updateTodoResponse]);
+
   return (
     <div className="on-going-wrapper">
       {loading ? (

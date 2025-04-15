@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "../style/TodoCard.scss";
 import { HiHeart } from "react-icons/hi";
 import { BiTrash } from "react-icons/bi";
@@ -9,12 +9,17 @@ import {
   updateIsFavouriteAPI,
   updateTodoStatusAPI,
 } from "../service/todoAPI";
+import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 
 interface Props {
   todo?: any;
 }
 
 const TodoCard: React.FC<Props> = ({ todo }) => {
+  // CONTEXTS
+  const context = useContext(updateTodoResponseContext);
+  const { setUpdateTodoResponse } = context;
+
   const [isCompleted, setIsCompleted] = useState(false);
   const [isFavourite, setIsFavourite] = useState(todo?.isFavourite);
   const token = JSON.parse(localStorage.getItem("token") || "{}");
@@ -37,7 +42,8 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
       }
 
       try {
-        await updateTodoStatusAPI(id, reqBody, reqHeader);
+        const result = await updateTodoStatusAPI(id, reqBody, reqHeader);
+        setUpdateTodoResponse(result.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -59,7 +65,8 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
         reqBody.data = "true";
       }
       try {
-        await updateIsFavouriteAPI(todo?.id, reqBody, reqHeader);
+        const result = await updateIsFavouriteAPI(todo?.id, reqBody, reqHeader);
+        setUpdateTodoResponse(result.data);
       } catch (error) {
         console.error("MARK AS FAVOURITE ERROR :", error);
       } finally {
@@ -77,6 +84,7 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
         const result = await deleteTodoAPI(todo?.id, reqHeader);
         if (result.status == 200) {
           alert("Todo Deleted !");
+          setUpdateTodoResponse(result.data);
         }
       } catch (error) {
         console.error(error);
