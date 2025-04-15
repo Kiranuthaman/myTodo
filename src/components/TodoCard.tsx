@@ -4,7 +4,11 @@ import { HiHeart } from "react-icons/hi";
 import { BiTrash } from "react-icons/bi";
 import React from "react";
 import moment from "moment";
-import { updateTodoStatusAPI } from "../service/todoAPI";
+import {
+  deleteTodoAPI,
+  updateIsFavouriteAPI,
+  updateTodoStatusAPI,
+} from "../service/todoAPI";
 
 interface Props {
   todo?: any;
@@ -12,6 +16,8 @@ interface Props {
 
 const TodoCard: React.FC<Props> = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(false);
+  const [isFavourite, setIsFavourite] = useState(todo?.isFavourite);
+  const token = JSON.parse(localStorage.getItem("token") || "{}");
 
   const toggleStatus = async () => {
     const token = JSON.parse(localStorage.getItem("token") || "{}");
@@ -40,6 +46,44 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
     }
   };
 
+  const toggleFavourite = async () => {
+    if (token) {
+      const reqHeader = {
+        Authorization: token,
+      };
+      let reqBody = { data: "" };
+
+      if (todo?.isFavourite) {
+        reqBody.data = "false";
+      } else if (!todo?.isFavourite) {
+        reqBody.data = "true";
+      }
+      try {
+        await updateIsFavouriteAPI(todo?.id, reqBody, reqHeader);
+      } catch (error) {
+        console.error("MARK AS FAVOURITE ERROR :", error);
+      } finally {
+        setIsFavourite((prev: any) => !prev);
+      }
+    }
+  };
+
+  const handleDeleteTodo = async () => {
+    if (token) {
+      const reqHeader = {
+        Authorization: token,
+      };
+      try {
+        const result = await deleteTodoAPI(todo?.id, reqHeader);
+        if (result.status == 200) {
+          alert("Todo Deleted !");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  };
+
   useEffect(() => {
     if (todo?.status == "ongoing") {
       setIsCompleted(false);
@@ -55,10 +99,10 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
         <button className="status-toggle" onClick={toggleStatus}>
           {isCompleted ? "✓" : ""}
         </button>
-        <button className="favotate-toggle">
-          <HiHeart />
+        <button className="favourite-toggle" onClick={toggleFavourite}>
+          <HiHeart color={isFavourite ? "red" : "gray"} />
         </button>
-        <button className="delete-btn">
+        <button onClick={handleDeleteTodo} className="delete-btn">
           <BiTrash />
         </button>
       </div>
