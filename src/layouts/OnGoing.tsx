@@ -1,10 +1,15 @@
 import TodoCard from "../components/TodoCard";
 import TodoForm from "../components/UI/TodoForm";
+import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 import { getAllOngoingTodoAPI } from "../service/todoAPI";
 import "../style/Gird.scss"; // We'll add styling here
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const OnGoing: React.FC = () => {
+  // CONTEXTS
+  const context2 = useContext(updateTodoResponseContext);
+  const { updateTodoResponse } = context2;
+
   const [todos, setTodos] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -35,8 +40,8 @@ const OnGoing: React.FC = () => {
 
   useEffect(() => {
     getAllOngoingTodo();
-  }, []);
-  
+  }, [updateTodoResponse]);
+
   return (
     <>
       <TodoForm />

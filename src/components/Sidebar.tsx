@@ -3,23 +3,37 @@ import "../style/Sidebar.scss";
 import { Link } from "react-router-dom";
 import { ImProfile } from "react-icons/im";
 import { HiHeart } from "react-icons/hi";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   getAllCompletedTodoAPI,
   getAllFavouriteTodoAPI,
   getAllOngoingTodoAPI,
   getAllTodoAPI,
 } from "../service/todoAPI";
+import {
+  createTodoResponseContext,
+  updateTodoResponseContext,
+} from "../contexts/responses/todo/ResponseShare";
 
 const Sidebar: React.FC = () => {
+  // CONTEXTS
+  const context = useContext(createTodoResponseContext);
+  const { createTodoResponse } = context;
+  const context2 = useContext(updateTodoResponseContext);
+  const { updateTodoResponse } = context2;
+
+  //DEFAULT DATA
   const token = JSON.parse(localStorage.getItem("token") || "{}");
   const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const [allCounts,setAllCounts] = useState<any>({
+
+  //STATES
+  const [allCounts, setAllCounts] = useState<any>({
     allTodo: 0,
     completedTodo: 0,
     favouriteTodo: 0,
-    ongoingTodo: 0
-  })
+    ongoingTodo: 0,
+  });
+
   //FETCH ALL COUNTS
   const fetchAllCounts = async () => {
     if (token) {
@@ -28,7 +42,7 @@ const Sidebar: React.FC = () => {
       };
       try {
         const allTodoResult = await getAllTodoAPI(user.id, reqHeader);
-       
+
         const allCompletedTodoResult = await getAllCompletedTodoAPI(
           user.id,
           reqHeader
@@ -37,15 +51,23 @@ const Sidebar: React.FC = () => {
           user.id,
           reqHeader
         );
-        const allOngoingTodoResult = await getAllOngoingTodoAPI(user.id, reqHeader);
+        const allOngoingTodoResult = await getAllOngoingTodoAPI(
+          user.id,
+          reqHeader
+        );
 
-        if (allTodoResult.status && allCompletedTodoResult.status && allFavouriteTodoResult.status && allOngoingTodoResult.status == 200 ) {
+        if (
+          allTodoResult.status &&
+          allCompletedTodoResult.status &&
+          allFavouriteTodoResult.status &&
+          allOngoingTodoResult.status == 200
+        ) {
           setAllCounts({
             allTodo: allTodoResult.data.length,
             completedTodo: allCompletedTodoResult.data.length,
             favouriteTodo: allFavouriteTodoResult.data.length,
-            ongoingTodo: allOngoingTodoResult.data.length
-          })
+            ongoingTodo: allOngoingTodoResult.data.length,
+          });
         }
       } catch (error) {
         console.error(error);
@@ -55,14 +77,14 @@ const Sidebar: React.FC = () => {
 
   useEffect(() => {
     fetchAllCounts();
-  }, []);
+  }, [createTodoResponse, updateTodoResponse]);
 
   return (
     <div className="sidebar">
       {/* Sidebar Header */}
       <div className="sidebar-header">
         <h1>
-          Hi, <span style={{color:"#0f65c7"}}>{user?.fname}</span>
+          Hi, <span style={{ color: "#0f65c7" }}>{user?.fname}</span>
         </h1>
       </div>
 
