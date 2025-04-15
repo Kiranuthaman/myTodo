@@ -20,7 +20,7 @@ const TodoForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const token = localStorage.getItem("token");
+    const token = JSON.parse(localStorage.getItem("token") || "{}");
     const user = JSON.parse(localStorage.getItem("user") || "{}");
 
     if (token) {
@@ -37,6 +37,7 @@ const TodoForm = () => {
       };
       try {
         const result = await createTodoAPI(reqBody, reqHeader);
+        console.log(result);
         if (result.status === 201) {
           alert("Todo Created !");
         } else {
