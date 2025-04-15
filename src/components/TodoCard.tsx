@@ -2,29 +2,51 @@ import { useEffect, useState } from "react";
 import "../style/TodoCard.scss";
 import { HiHeart } from "react-icons/hi";
 import { BiTrash } from "react-icons/bi";
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
+import { updateTodoStatusAPI } from "../service/todoAPI";
 
 interface Props {
   todo?: any;
 }
 
-
-
 const TodoCard: React.FC<Props> = ({ todo }) => {
   const [isCompleted, setIsCompleted] = useState(false);
 
-  const toggleStatus = () => {
-    setIsCompleted((prev) => !prev);
+  const toggleStatus = async () => {
+    const token = JSON.parse(localStorage.getItem("token") || "{}");
+    const id = todo?.id;
+
+    if (token) {
+      const reqHeader = {
+        Authorization: token,
+      };
+
+      let reqBody = { data: "" };
+
+      if (todo?.status === "ongoing") {
+        reqBody.data = "completed";
+      } else if (todo?.status === "completed") {
+        reqBody.data = "ongoing";
+      }
+
+      try {
+        await updateTodoStatusAPI(id, reqBody, reqHeader);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsCompleted((prev) => !prev);
+      }
+    }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (todo?.status == "ongoing") {
-      setIsCompleted(false)
-    }else if (todo?.status == "completed") {
-      setIsCompleted(true)
+      setIsCompleted(false);
+    } else if (todo?.status == "completed") {
+      setIsCompleted(true);
     }
-  },[todo])
+  }, [todo]);
 
   return (
     <div className={`todo-card ${isCompleted ? "completed" : "ongoing"}`}>
@@ -34,17 +56,17 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
           {isCompleted ? "✓" : ""}
         </button>
         <button className="favotate-toggle">
-           <HiHeart/>
+          <HiHeart />
         </button>
         <button className="delete-btn">
-           <BiTrash/>
+          <BiTrash />
         </button>
       </div>
-      <p className="todo-description">
-        {todo?.content}
-      </p>
+      <p className="todo-description">{todo?.content}</p>
       <p className="todo-status">{isCompleted ? "Completed" : "Pending"}</p>
-      <p style={{fontSize:"0.8rem"}}>Created : {moment(todo?.createdAt).format("DD MMMM YYYY hh:mmA")}</p>
+      <p style={{ fontSize: "0.8rem" }}>
+        Created : {moment(todo?.createdAt).format("DD MMMM YYYY hh:mmA")}
+      </p>
     </div>
   );
 };
