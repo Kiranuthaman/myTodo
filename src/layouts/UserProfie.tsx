@@ -1,19 +1,21 @@
-import '../style/Profile.scss';
-import React, { useEffect, useState } from 'react';
-import { getAllTodoAPI } from '../service/todoAPI';
-import DeleteProfile from '../components/UI/DeleteProfile';
-import { FaTrash } from 'react-icons/fa';
+import "../style/Profile.scss";
+import React, { useEffect, useState } from "react";
+import { getAllTodoAPI } from "../service/todoAPI";
+import DeleteProfile from "../components/UI/DeleteProfile";
+import { FaTrash } from "react-icons/fa";
+import { removeUserAPI } from "../service/userAPI";
+import { useNavigate } from "react-router-dom";
 
 interface Todo {
   id: string;
   title: string;
-  status: 'ongoing' | 'completed';
+  status: "ongoing" | "completed";
 }
-
 
 const UserProfile: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const getAllTodo = async () => {
     const token = JSON.parse(localStorage.getItem("token") || "{}");
@@ -35,8 +37,6 @@ const UserProfile: React.FC = () => {
       }
     }
   };
-  console.log(todos);
-
 
   useEffect(() => {
     getAllTodo();
@@ -44,22 +44,42 @@ const UserProfile: React.FC = () => {
 
   // number of tasks
   const totalTasks = todos.length;
-  const ongoingTasks = todos.filter(todo => todo.status == 'ongoing').length;
-  const completedTasks = todos.filter(todo => todo.status == 'completed').length;
+  const ongoingTasks = todos.filter((todo) => todo.status == "ongoing").length;
+  const completedTasks = todos.filter(
+    (todo) => todo.status == "completed"
+  ).length;
 
   // personal details
   const data = JSON.parse(localStorage.getItem("user") || "{}");
-  const fullName = `${data.fname || ''} ${data.mname || ''} ${data.lname || ''}`.trim();
-  const firstLetter = `${data.fname?.[0] || ''}${data.lname?.[0] || ''}`.toUpperCase();
+  const fullName = `${data.fname || ""} ${data.mname || ""} ${
+    data.lname || ""
+  }`.trim();
+  const firstLetter = `${data.fname?.[0] || ""}${
+    data.lname?.[0] || ""
+  }`.toUpperCase();
 
-
-  const handleDelete = () => {
-    // Your delete logic here (e.g., API call)
+  const handleDelete = async () => {
+    const token = JSON.parse(localStorage.getItem("token") || "{}");
+    if (token) {
+      const reqHeader = {
+        Authorization: token,
+      };
+      try {
+        const result = await removeUserAPI(data?.id, reqHeader);
+        if (result.status === 200) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate("/");
+        } else{
+          alert("Failed to delete account !");
+        }
+      } catch (error) {
+        console.error("ERROR IN ACCOUNT DELETE :", error);
+      }
+    }
     console.log("Account permanently deleted");
     setShowModal(false);
   };
-
-
 
   return (
     <div className="page-wrapper">
@@ -75,13 +95,14 @@ const UserProfile: React.FC = () => {
                 <p className="email">{data.email}</p>
               </div>
             </div>
-            <button className='settings-btn' onClick={() => setShowModal(true)}><FaTrash style={{color:"#3b82f6"}} size={18}/></button>
+            <button className="settings-btn" onClick={() => setShowModal(true)}>
+              <FaTrash style={{ color: "#3b82f6" }} size={18} />
+            </button>
             <DeleteProfile
               isOpen={showModal}
               onClose={() => setShowModal(false)}
               onDelete={handleDelete}
             />
-
           </div>
         </div>
 
@@ -103,7 +124,6 @@ const UserProfile: React.FC = () => {
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
