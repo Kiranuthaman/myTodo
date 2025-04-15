@@ -33,10 +33,20 @@ export const getAllFavouriteTodoAPI = async (id: any, reqHeader: any) => {
 
 //GET ALL ONGOING TODO API
 export const getAllOngoingTodoAPI = async (id: any, reqHeader: any) => {
+  return await commonApi(
+    "GET",
+    `${serverUrl}/api/todo/ongoing/${id}`,
+    {},
+    reqHeader
+  );
+};
+
+//GET ALL ONGOING TODO API
+export const updateTodoStatusAPI = async (id: any, reqBody: any, reqHeader: any) => {
     return await commonApi(
-      "GET",
-      `${serverUrl}/api/todo/ongoing/${id}`,
-      {},
+      "PUT",
+      `${serverUrl}/api/todo/update/${id}`,
+      reqBody,
       reqHeader
     );
   };
