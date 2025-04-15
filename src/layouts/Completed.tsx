@@ -11,7 +11,6 @@ const  Completed:React.FC =()=> {
       <TodoCard />
       <TodoCard />
       <TodoCard />
-    
     </div>
   )
 }

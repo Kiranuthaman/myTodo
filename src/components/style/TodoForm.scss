@@ -104,6 +104,12 @@
         }
       }
     }
+
+    .form-content{
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
   
     .submit-button {
       padding: 0.75rem;
