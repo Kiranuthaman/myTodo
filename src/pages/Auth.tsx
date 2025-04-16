@@ -108,11 +108,7 @@ const Auth: React.FC<RegisterProps> = ({ register }) => {
     }
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("user") && localStorage.getItem("token")) {
-      navigate("/dashboard");
-    }
-  }, []);
+ 
 
   return (
     <div className="container">
