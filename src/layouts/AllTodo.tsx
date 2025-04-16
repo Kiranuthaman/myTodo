@@ -1,4 +1,5 @@
 import TodoCard from "../components/TodoCard";
+import SearchForm from "../components/UI/SearchForm";
 import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 import { getAllTodoAPI } from "../service/todoAPI";
 import "../style/Gird.scss";
@@ -42,17 +43,20 @@ const AllTodo: React.FC = () => {
   }, [updateTodoResponse]);
 
   return (
-    <div className="on-going-wrapper">
-      {loading ? (
-        <div>Loading...</div>
-      ) : todos.length > 0 ? (
-        todos.map((todo: any, index: number) => (
-          <TodoCard key={index} todo={todo} />
-        ))
-      ) : (
-        <div>No todos found</div>
-      )}
-    </div>
+    <>
+      <SearchForm />
+      <div className="on-going-wrapper">
+        {loading ? (
+          <div>Loading...</div>
+        ) : todos.length > 0 ? (
+          todos.map((todo: any, index: number) => (
+            <TodoCard key={index} todo={todo} />
+          ))
+        ) : (
+          <div>No todos found</div>
+        )}
+      </div>
+    </>
   );
 };
 

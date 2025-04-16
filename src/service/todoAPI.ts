@@ -78,3 +78,13 @@ export const deleteTodoAPI = async (id: any, reqHeader: any) => {
     reqHeader
   );
 };
+
+//SEARCH TODO API
+export const searchTodoAPI = async (id:any, query: string, reqHeader: any) => {
+  return await commonApi(
+    "GET",
+    `${serverUrl}/api/todo/${id}/searchTodo/search?search=${query}`,
+    {},
+    reqHeader
+  );
+};

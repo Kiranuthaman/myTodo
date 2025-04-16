@@ -1,4 +1,10 @@
-import { FaTasks, FaCheckCircle, FaHourglassHalf, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaTasks,
+  FaCheckCircle,
+  FaHourglassHalf,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import "../style/Sidebar.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { ImProfile } from "react-icons/im";
@@ -42,7 +48,12 @@ const Sidebar: React.FC = () => {
     if (token) {
       const reqHeader = { Authorization: token };
       try {
-        const [allTodoResult, allCompletedTodoResult, allFavouriteTodoResult, allOngoingTodoResult] = await Promise.all([
+        const [
+          allTodoResult,
+          allCompletedTodoResult,
+          allFavouriteTodoResult,
+          allOngoingTodoResult,
+        ] = await Promise.all([
           getAllTodoAPI(user.id, reqHeader),
           getAllCompletedTodoAPI(user.id, reqHeader),
           getAllFavouriteTodoAPI(user.id, reqHeader),
@@ -75,7 +86,6 @@ const Sidebar: React.FC = () => {
     navigate("/");
   };
 
-
   useEffect(() => {
     fetchAllCounts();
   }, [createTodoResponse, updateTodoResponse]);
@@ -92,11 +102,16 @@ const Sidebar: React.FC = () => {
             Hi, <span style={{ color: "#0f65c7" }}>{user?.fname}</span>
           </h1>
         </div>
-
         <div className="task-stats">
-          <Link to={"/dashboard"} className="link-dec" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            to={"/dashboard"}
+            className="link-dec"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <div className="stat-item">
-              <div className="stat-icon pending"><FaHourglassHalf size={18} /></div>
+              <div className="stat-icon pending">
+                <FaHourglassHalf size={18} />
+              </div>
               <div className="stat-info">
                 <span className="stat-label">On Going</span>
                 <span className="stat-value">{allCounts?.ongoingTodo}</span>
@@ -104,9 +119,15 @@ const Sidebar: React.FC = () => {
             </div>
           </Link>
 
-          <Link to={"alltasks"} className="link-dec" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            to={"alltasks"}
+            className="link-dec"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <div className="stat-item">
-              <div className="stat-icon all"><FaTasks size={18} /></div>
+              <div className="stat-icon all">
+                <FaTasks size={18} />
+              </div>
               <div className="stat-info">
                 <span className="stat-label">All Tasks</span>
                 <span className="stat-value">{allCounts?.allTodo}</span>
@@ -114,9 +135,15 @@ const Sidebar: React.FC = () => {
             </div>
           </Link>
 
-          <Link to={"completed"} className="link-dec" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            to={"completed"}
+            className="link-dec"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <div className="stat-item">
-              <div className="stat-icon completed"><FaCheckCircle size={18} /></div>
+              <div className="stat-icon completed">
+                <FaCheckCircle size={18} />
+              </div>
               <div className="stat-info">
                 <span className="stat-label">Completed</span>
                 <span className="stat-value">{allCounts?.completedTodo}</span>
@@ -124,9 +151,15 @@ const Sidebar: React.FC = () => {
             </div>
           </Link>
 
-          <Link to={"favorate"} className="link-dec" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            to={"favorate"}
+            className="link-dec"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <div className="stat-item">
-              <div className="stat-icon favorate"><HiHeart size={18} /></div>
+              <div className="stat-icon favorate">
+                <HiHeart size={18} />
+              </div>
               <div className="stat-info">
                 <span className="stat-label">Favorate</span>
                 <span className="stat-value">{allCounts?.favouriteTodo}</span>
@@ -134,9 +167,15 @@ const Sidebar: React.FC = () => {
             </div>
           </Link>
 
-          <Link to={"Profile"} className="link-dec" onClick={() => setIsSidebarOpen(false)}>
+          <Link
+            to={"Profile"}
+            className="link-dec"
+            onClick={() => setIsSidebarOpen(false)}
+          >
             <div className="stat-item">
-              <div className="stat-icon profile"><ImProfile size={18} /></div>
+              <div className="stat-icon profile">
+                <ImProfile size={18} />
+              </div>
               <div className="stat-info">
                 <span className="stat-label">Profile</span>
               </div>
