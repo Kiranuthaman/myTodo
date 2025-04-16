@@ -104,15 +104,17 @@ const TodoCard: React.FC<Props> = ({ todo }) => {
     <div className={`todo-card ${isCompleted ? "completed" : "ongoing"}`}>
       <div className="todo-header">
         <h2 className="todo-title">{todo?.title}</h2>
-        <button className="status-toggle" onClick={toggleStatus}>
-          {isCompleted ? "✓" : ""}
-        </button>
-        <button className="favourite-toggle" onClick={toggleFavourite}>
-          <HiHeart color={isFavourite ? "red" : "gray"} />
-        </button>
-        <button onClick={handleDeleteTodo} className="delete-btn">
-          <BiTrash />
-        </button>
+        <div className="todo-actions">
+          <button className="status-toggle" onClick={toggleStatus}>
+            {isCompleted ? "✓" : ""}
+          </button>
+          <button className="favourite-toggle" onClick={toggleFavourite}>
+            <HiHeart color={isFavourite ? "red" : "gray"} />
+          </button>
+          <button onClick={handleDeleteTodo} className="delete-btn">
+            <BiTrash />
+          </button>
+        </div>
       </div>
       <p className="todo-description">{todo?.content}</p>
       <p className="todo-status">{isCompleted ? "Completed" : "Pending"}</p>
