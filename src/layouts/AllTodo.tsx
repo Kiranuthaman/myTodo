@@ -1,5 +1,4 @@
 import TodoCard from "../components/TodoCard";
-import SearchForm from "../components/UI/SearchForm";
 import { updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 import { getAllTodoAPI } from "../service/todoAPI";
 import "../style/Gird.scss";
@@ -44,7 +43,6 @@ const AllTodo: React.FC = () => {
 
   return (
     <>
-      <SearchForm />
       <div className="on-going-wrapper">
         {loading ? (
           <div>Loading...</div>

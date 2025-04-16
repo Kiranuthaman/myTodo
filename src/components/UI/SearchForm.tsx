@@ -52,9 +52,8 @@ const SearchForm = () => {
 
   return (
     <>
-      <button className="open-modal-btn" onClick={() => setIsOpen(true)}>
+      <button className="custom-btn" onClick={() => setIsOpen(true)}>
         <BiSearch size={24} />
-        Search Todo
       </button>
 
       {isOpen && (

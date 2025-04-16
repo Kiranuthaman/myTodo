@@ -1,5 +1,4 @@
 import TodoCard from "../components/TodoCard";
-import TodoForm from "../components/UI/TodoForm";
 import { createTodoResponseContext, updateTodoResponseContext } from "../contexts/responses/todo/ResponseShare";
 import { getAllOngoingTodoAPI } from "../service/todoAPI";
 import "../style/Gird.scss"; // We'll add styling here
@@ -46,7 +45,6 @@ const OnGoing: React.FC = () => {
 
   return (
     <>
-      <TodoForm />
 
       <div className="on-going-wrapper">
         {loading ? (
