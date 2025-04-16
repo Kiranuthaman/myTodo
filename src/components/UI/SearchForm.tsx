@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../style/SearchForm.scss";
 import { BiSearch, BiX } from "react-icons/bi";
 import { searchTodoAPI } from "../../service/todoAPI";
+import TodoCard from "../TodoCard";
 
 const SearchForm = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -27,7 +28,11 @@ const SearchForm = () => {
         const fetchSearch = async () => {
           try {
             setIsLoading(true);
-            const result = await searchTodoAPI(user?.id, searchQuery, reqHeader);
+            const result = await searchTodoAPI(
+              user?.id,
+              searchQuery,
+              reqHeader
+            );
             setSearchResults(result.data);
           } catch (error) {
             console.error(error);
@@ -47,14 +52,13 @@ const SearchForm = () => {
 
   return (
     <>
-      <button className="open-modal-btn" onClick={() => setIsOpen(true)}>
+      <button className="custom-btn" onClick={() => setIsOpen(true)}>
         <BiSearch size={24} />
-        Search Todo
       </button>
 
       {isOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="modal-overlay ">
+          <div className=" custom-modal">
             <button className="close-modal" onClick={handleClose}>
               <BiX size={35} />
             </button>
@@ -85,7 +89,7 @@ const SearchForm = () => {
                   <ul>
                     {searchResults.map((todo) => (
                       <li key={todo.id}>
-                        <strong>{todo.title}</strong>: {todo.content}
+                        <TodoCard todo={todo} />
                       </li>
                     ))}
                   </ul>

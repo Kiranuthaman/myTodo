@@ -62,7 +62,6 @@ const TodoForm = () => {
     <>
       <button className="open-modal-btn" onClick={() => setIsOpen(true)}>
         <BiPlusCircle size={24} />
-        Create Todo
       </button>
 
       {isOpen && (
